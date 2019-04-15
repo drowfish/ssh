@@ -17,9 +17,6 @@ public class UserService {
 	@Resource
 	private UserDao userDao;
 	
-	public List<User> getUser(String name){
-		return userDao.getUser(name);
-	}
 	
 	public PageBean<User> findAll(User user,PageBean<User> pageBean){
 		return userDao.findAll(user,pageBean);

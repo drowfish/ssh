@@ -1,6 +1,5 @@
 package com.bcd.action;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -9,9 +8,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
 import org.springframework.context.annotation.Scope;
@@ -20,7 +16,6 @@ import org.springframework.stereotype.Controller;
 import com.bcd.entity.User;
 import com.bcd.service.UserService;
 import com.bcd.util.PageBean;
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
@@ -66,18 +61,15 @@ public class UserAction extends ActionSupport implements ModelDriven<User> {
 		this.map = map;
 	}
 
+	//可查询所用数据也可根据姓名查询
 	public String findAll() throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println("findAll开始");
 		System.out.println("name:"+request.getParameter("name"));
 		User user = new User();
 		user.setName(request.getParameter("name"));
-		System.out.println("user:"+user);
 		PageBean<User> pageBean = new PageBean<User>();
-		System.out.println("request:"+request.getParameter("page")+"values:"+request.getParameter("rows"));
 		pageBean.setPageNo(Integer.parseInt(request.getParameter("page")));
 		pageBean.setPageSize(Integer.parseInt(request.getParameter("rows")));
-		System.out.println("pagebean:"+pageBean);
 		pageBean = userService.findAll(user,pageBean);
 		map.clear();
 		map.put("total", pageBean.getRows());
@@ -85,6 +77,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User> {
 		return "flag";
 	}
 
+	//增加用户信息
 	public String add(){
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String string = simpleDateFormat.format(new Date());
@@ -99,6 +92,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User> {
 		return "flag";
 	}
 	
+	//删除用户信息
 	public String delete(){
 		User user = new User();
 		map.clear();
@@ -116,6 +110,7 @@ public class UserAction extends ActionSupport implements ModelDriven<User> {
 		return "flag";
 	}
 	
+	//更改用户信息
 	public String update(){
 		System.out.println("update:"+user);
 		int flag = userService.update(user);
@@ -128,10 +123,5 @@ public class UserAction extends ActionSupport implements ModelDriven<User> {
 		return "flag";
 	}
 	
-	public String findOne(){
-		System.out.println("findOne:"+user);
-		List<User> list = userService.getUser(user.getName());
-		return "list";
-	}
 	
 }

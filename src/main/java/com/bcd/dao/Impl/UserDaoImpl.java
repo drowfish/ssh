@@ -21,22 +21,6 @@ public class UserDaoImpl implements UserDao{
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	
-	@Override
-	public List<User> getUser(String name) {
-		// TODO Auto-generated method stub
-		String hql = "from User where name = ?";
-		Query query = sessionFactory.getCurrentSession().createQuery(hql);
-		query.setString(1, name);
-		List<User> list = query.list();
-		System.out.println("list:"+list.isEmpty());
-		for(User string:list){
-			System.out.println("list:"+string);
-		}
-		return list;
-	}
-	
-	
 	@Override
 	public PageBean<User> findAll(User user,PageBean<User>pageBean) {
 		// TODO Auto-generated method stub

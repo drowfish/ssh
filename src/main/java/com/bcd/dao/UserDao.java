@@ -8,9 +8,7 @@ import com.bcd.util.PageBean;
 
 public interface UserDao {
 	
-	//根据姓名查询
-	public List<User> getUser(String name);
-	//查询用户
+	//查询用户也可根据姓名查询
 	public PageBean<User> findAll(User user,PageBean<User> pageBean);
 	//增加用户
 	public int add(User user);
